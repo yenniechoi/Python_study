@@ -1,6 +1,6 @@
 """
 종합(3)
-6084 ~ 6088
+6084 ~ 6087
 """
 
 
@@ -68,10 +68,4 @@ for i in range(1, d+1):
         print(i, end=' ')
 print()
 
-# 6088 -- 등차수열
-# 시작 값(a), 등차의 값(d), 몇 번째 수 인지를 의미하는 정수(n)
-a, d, n = map(int, input("1 3 5 -- ").split())
-for i in range(n-1):
-    a += d
-print(a)
-# result = a + (n - 1) * d
+
