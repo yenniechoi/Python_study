@@ -1,6 +1,6 @@
 """
 리스트
-6096 ~
+6096 ~ 6098
 """
 
 # 6096 -- 바둑알 십(+)자 뒤집기
@@ -11,7 +11,7 @@
 # 십자 뒤집기 횟수(n)가 입력된다.
 # 십자 뒤집기 좌표가 횟수(n) 만큼 입력된다. 단, n은 10이하의 자연수이다.
 
-# '''
+
 d = [list(map(int, input().split())) for _ in range(19)]
 n = int(input("2"))
 for _ in range(n):
@@ -29,7 +29,7 @@ for _ in range(n):
 
 for row in d:
     print(' '.join(map(str, row)))
-# '''
+
 
 # 6097 -- 설탕과자 뽑기
 
@@ -44,6 +44,7 @@ for row in d:
 
 # 모든 막대를 놓은 격자판의 상태를 출력한다.
 # 막대에 의해 가려진 경우 1, 아닌 경우 0으로 출력
+
 
 h, w = map(int, input().split())
 # grid = [[0] * h for _ in range(w)]
@@ -66,5 +67,76 @@ for _ in range(n):
 
 for row in grid:
     print(' '.join(map(str, row)))
+
+
+
+# 6098 -- 성실한 개미 미로찾기
+# 0(갈 수 있는 곳), 1(벽 또는 장애물), 2(먹이)
+# 오른쪽으로 움직이다가 벽을 만나면 아래쪽으로 움직여 가장 빠른 길로 움직
+# 단, 맨 아래의 가장 오른쪽에 도착한 경우, 더 이상 움직일 수 없는 경우, 먹이를 찾은 경우에는
+# 더이상 이동하지 않고 그 곳에 머무른다.
+# 개미는 (2, 2)에서 출발
+# 10*10 크기의 미로 상자의 구조와 먹이의 위치가 입력된다.
+# 개미가 이동한 경로를 9로 표시해 출력
+
+miro = [list(map(int, input().split())) for _ in range(10)]
+
+x, y = 1, 1
+miro[x][y] = 9
+
+while True:
+    # 먹이를 찾으면 가만히 있는다.
+    if miro[x][y] == 2:
+        miro[x][y] = 9
+        break
+
+    # 오른쪽이 0이면 오른쪽으로 간다.
+    elif miro[x][y + 1] == 0:
+        y += 1
+        miro[x][y] = 9
+
+    # 오른쪽이 2이면 오른쪽으로 가서 끝낸다.
+    elif miro[x][y + 1] == 2:
+        y += 1
+        miro[x][y] = 9
+        break
+
+    # 오른쪽이 1인데, 아래가 0이면 아래로 간다.
+    elif miro[x+1][y] == 0:
+        x += 1
+        miro[x][y] = 9
+
+    # 오른쪽이 1인데, 아래가 2이면 아래로 가서 끝낸다.
+    elif miro[x + 1][y] == 2:
+        x += 1
+        miro[x][y] = 9
+        break
+
+    else:
+        break
+
+for row in miro:
+    print(' '.join(map(str, row)))
+
+
+'''
+while True:
+    # Check for food (2), stop if found
+    if miro[x][y] == 2:
+        miro[x][y] = 9
+        break
+    
+    # Move right if possible
+    if miro[x][y+1] != 1:
+        y += 1
+    # Otherwise, move down if possible
+    elif miro[x+1][y] != 1:
+        x += 1
+    else:  # If stuck, stop
+        break
+    
+    # Mark the new position
+    miro[x][y] = 9
+'''
 
 
