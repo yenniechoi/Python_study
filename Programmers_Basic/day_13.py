@@ -47,33 +47,58 @@ def left_right(str_list):
         if val == "l":
             return str_list[:i]
         if val == "r":
-            return str_list[i:]
+            return str_list[i+1:]
     return []
+
+'''
+JS
+for(let i = 0; i < arr.length; i++) {
+     if (arr[i] === 'l') return arr.slice(0, i);
+     if (arr[i] === 'r') return arr.slice(i + 1);
+ }
+ return [];
+'''
 
 print(left_right(["u", "u", "l", "r"])) # ["u", "u"]
 print(left_right(["l"]))                # []
-print(left_right(["l", "u", "d", "r"]))  # Expected output: []
-print(left_right(["r", "u", "d", "l"]))  # Expected output: ["r", "u", "d", "l"]
-print(left_right(["u", "d", "u", "d"]))  # Expected output: []
-print(left_right(["u", "d", "u", "l"]))  # Expected output: ["u", "d", "u"]
-print(left_right(["u", "d", "u", "r"]))  # Expected output: ["r"]
-print(left_right([]))  # Expected output: []
-print(left_right(["l"]))  # Expected output: []
-print(left_right(["r"]))  # Expected output: ["r"]
-print(left_right(["u"]))  # Expected output: []
 
 
 
 # 64) ===================================================================
+# num_list의 첫 번째 원소부터 n 번째 원소까지의 모든 원소를 담은 리스트
 
+def to_n(num_list, n):
+    return num_list[:n]
 
+'''
+JS
+return num_list.slice(0, n);
 
-print()
+Java
+return Arrays.copyOfRange(num_list,0,n);
+'''
+
+print(to_n([2, 1, 6],	1))     # [2]
 
 
 # 65) ===================================================================
+# 첫 번째 원소부터 마지막 원소까지 n개 간격
 
+def interval_n(num_list, n):
+    return num_list[::n]
 
+'''
+JS
+const solution = (num_list, n) => num_list.filter((_, i) => !(i % n))
 
-print()
+Java
+int N = num_list.length % n == 0 ? num_list.length / n : num_list.length / n + 1;
+int idx = 0;
+int[] answer = new int[N];
+for (int i = 0;i < num_list.length;i+=n)
+    answer[idx++] = num_list[i];
+return answer;
+'''
+
+print(interval_n([4, 2, 6, 1, 7, 6],	2))     # [4, 6, 7]
 
