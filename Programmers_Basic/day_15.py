@@ -77,17 +77,81 @@ print(compare_50_x([1, 2, 3, 100, 99, 98]))     # 5
 
 
 # 73) ==========================================================================
+# 짝수라면 반으로 나누고, 홀수라면 1을 뺀 뒤 반으로 나누면, 마지막엔 1이 됩니다.
+# num_list의 모든 원소를 1로 만들기 위해서 필요한 나누기 연산의 횟수 총합 리턴.
+
+def count_for_one(num_list):
+    answer = 0
+    for n in num_list:
+        count = 0
+        while n != 1:
+            if n % 2 == 0:
+                n = n // 2
+                count += 1
+            else:
+                n = (n - 1) // 2
+                count += 1
+        answer += count
+
+    return answer
+
+'''
+# 바이트 연산
+return sum(len(bin(i)) - 3 for i in num_list)
+
+# 홀수일 때 1을 빼고 2로 나눈다는 것 = 몫을 구하겠다는 것
+for n in num_list:
+    while n != 1:
+        n //= 2
+        answer += 1
+'''
+'''
+JS
+return num_list.map(v => v.toString(2).length - 1).reduce((a, c) => a + c);
+
+Java
+return Arrays.stream(num_list).map(i -> Integer.toBinaryString(i).length() - 1).sum();
+'''
 
 
-
-print()
+print(count_for_one([12, 4, 15, 1, 14]))    # 11
 
 
 # 74) ==========================================================================
+# 리스트의 길이가 11 이상이면 리스트에 있는 모든 원소의 합을, 10 이하이면 모든 원소의 곱을 return
 
+def if_list_11(num_list):
+    if len(num_list) >= 11:
+        return sum(num_list)
+    else:
+        mul = 1
+        for n in num_list:
+            mul *= n
+        return mul
 
+'''
+return eval('*'.join(map(str, num_list)))
 
-print()
+from functools import reduce
+return reduce(lambda x, y: x * y, num_list)
+
+from math import prod
+def solution(num_list):
+    return sum(num_list) if len(num_list)>=11 else prod(num_list)
+'''
+'''
+JS
+const solution = n => n.reduce((a, v) => n.length > 10 ? a + v : a * v)
+
+const mult = (acc, v) => acc * v;
+const add = (acc, v) => acc + v;
+return num_list.length > 10
+    ? num_list.reduce(add, 0)
+    : num_list.reduce(mult, 1);
+'''
+
+print(if_list_11([3, 4, 5, 2, 5, 4, 6, 7, 3, 7, 2, 2, 1]))  # 51
+print(if_list_11([2, 3, 4, 5]))          # 120
 
 
 # 75) ==========================================================================
