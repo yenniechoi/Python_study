@@ -155,8 +155,17 @@ print(if_list_11([2, 3, 4, 5]))          # 120
 
 
 # 75) ==========================================================================
+# myString의 연속된 부분 문자열 중 pat이 존재하면 1을 그렇지 않으면 0
+
+def is_there_pat(myString, pat):
+    return int(pat.lower() in myString.lower())
 
 
+'''
+JS
+return +(myString.toUpperCase().includes(pat.toUpperCase()));
+'''
 
-print()
+print(is_there_pat("AbCdEfG", "aBc"))   # 1
+print(is_there_pat("aaAA", "aaaaa"))    # 0
 
