@@ -46,21 +46,33 @@ data.sort()     # 입력받은 수들 정렬하기
 first = data[n - 1]
 second = data[n - 2]
 
+# [1] 단순하게 푸는 방법
+
 result = 0
 while True:
     for i in range(k):  # 가장 큰 수 k번 더하기
         if m == 0:
             break
         result += first
-        m -= 1
-    
+        m -= 1  
     if m == 0:
-        break
-        
+        break 
     result += second
     m -= 1
 
+
+# [2] 수학 공식 이용
+
+# 가장 큰 수가 더해지는 횟수 계산
+count = int(m/(k+1)) * k
+count += m % (k+1)
+
+result = 0
+result += (count) * first   # 가장 큰 수 더하기
+result += (m-count) * second    # 두 번째로 큰 수 더하기
+
 print(result)
+
 '''
 
 # 2)============================================================
