@@ -19,13 +19,49 @@ n, m, k = map(int, input().split())
 # N개의 자연수 공백으로 구분하여 입력 받기
 data = list(map(int, input().split()))
 
+max_value = max(data)   # 가장 큰 수
+data.remove(max_value)
+next_max = max(data)    # 두 번째로 큰 수
+
 result = 0
+cnt = k
 # 가장 큰 수를 더하는데, 연속해서 K번 더할 수는 없음
 for i in range(m):
-    max_value = max(data)
-    result += max_value
+    if cnt == 0:
+        # 두 번째로 큰 수를 한 번 더하기
+        result += next_max
+        cnt = k
+    else :
+        # 가장 큰 수를 k번 더하기
+        result += max_value
+        # 더할 때마다 1씩 빼기
+        cnt -= 1
 
+print(result)
 
+'''
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+data.sort()     # 입력받은 수들 정렬하기
+first = data[n - 1]
+second = data[n - 2]
+
+result = 0
+while True:
+    for i in range(k):  # 가장 큰 수 k번 더하기
+        if m == 0:
+            break
+        result += first
+        m -= 1
+    
+    if m == 0:
+        break
+        
+    result += second
+    m -= 1
+
+print(result)
+'''
 
 # 2)============================================================
 # 여러 개의 숫자 카드 중 가장 높은 숫자가 쓰인 카드 한장을 뽑는 게임
