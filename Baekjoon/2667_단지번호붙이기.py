@@ -21,20 +21,20 @@ sys.stdin = open("input.txt", "r")
 # DFS 로 풀어도 됨! 다만, 맵이 커질 수록 반복 횟수가 커져서
 # BFS 는 코드는 다소 길지만 효율적이어서 추천
 def BFS(x, y):
-    queue = deque([(x, y)])
-    d = [(-1, 0), (0, 1), (1, 0), (0, -1)]  # 4 방향 선언
-    cnt = 0 # 집 수 카운트
+    queue = deque([(x, y)]) # 큐 선언 및 초기데이터 삽입
+    v[x][y] = 1             # 방문처리
+    cnt = 1                 # 정답처리 관련 작업 -> 집 카운트
 
+    d = [(-1, 0), (0, 1), (1, 0), (0, -1)]  # 4 방향 선언
     while queue:
         cx, cy = queue.popleft()
         for dx, dy in d:
             nx, ny = cx + dx, cy + dy
-            # 4 방향이 맵 안에 있고, 집이 있으며, 방문한 적 없다면
-            if 0 <= nx < N and 0 <= ny < N and adj[nx][ny] == 1 and v[nx][ny] == 0:
-                cnt += 1                # 단지 수 카운트
+            # 4 방향, 범위 내, 미방문, 1이면 큐 삽입
+            if 0 <= nx < N and 0 <= ny < N and v[nx][ny] == 0 and adj[nx][ny] == 1:
                 queue.append((nx, ny))  # 방문할 수 있는 집을 queue 에 넣기
                 v[nx][ny] = 1           # 방문처리
-
+                cnt += 1                # 단지 수 카운트
     return cnt
 
 # 지도의 크기, 지도 정보 입력 받기
