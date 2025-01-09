@@ -59,16 +59,6 @@ ans.sort()
 print(len(ans), *ans, sep="\n")
 
 
-
-
-
-
-
-
-
-
-
-
 '''
 7
 0110100
