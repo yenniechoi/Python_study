@@ -21,35 +21,46 @@
 import sys
 from collections import deque
 
+input = lambda: sys.stdin.readline().strip()
+
 sys.stdin = open("input.txt", "r")
 
 N = int(input())                    # 전체 사람 수
-A, B = map(int, input().split())    # 촌수 계산 필요한 가족 구성원 2
+S, E = map(int, input().split())    # 촌수 계산 필요한 가족 구성원 2 (시작점-끝점)
 M = int(input())                    # 총 관계 수
 
 adj = [[] for _ in range(N + 1)]    # 부모 자식 쌍
 for _ in range(M):
-    x, y = map(int, sys.stdin.readline().split())
+    x, y = map(int, input().split())
+    # 부모자식 순이어도 어쨌거나 연결되어 있으니까 양방향 연결을 해야함!
     adj[x].append(y)
+    adj[y].append(x)
 
-# 최단거리는 BFS
-def BFS(a, b):
-    queue = deque([a])  # 큐 선언 및 초기화
-    v = []              # 방문처리 스택 선언
+# 한 번에 한 칸 씩 건너가서 최단거리 계산
+def BFS(s, e):
+    # 초기화 및 방문처리
+    queue = deque([s])
+    v = [0] * (N + 1)
+    v[s] = 1
 
     while queue:
-        now = queue.popleft()
-        if now not in v:
-            v.append(now)           # 방문하지 않은 노드이면 방문 처리
-            if b in adj[now]:       # 해당 노드의 자식 중 b 가 있으면 촌수 반환
-                return len(v)
-            for i in range(1, N+1):
-                if now in adj[i]:   # 현재 노드의 부모를 찾았으면 큐에 삽입
-                    queue.append(i)
+        c = queue.popleft()
+
+        # 목적지에 도착하면 방문처리 뺀 촌수만 리턴
+        if c == e:
+            return v[e] - 1
+
+        # c와 연결된 모든 노드 탐방
+        for n in adj[c]:
+            # 방문하지 않았다면 방문하기 (not v[e])
+            if v[n] == 0:
+                queue.append(n)
+                # 방문처리 겸 촌수 계산
+                v[n] = v[c] + 1
 
     return -1   # 연결된 가족이 없을 경우 -1 리턴
 
-print(BFS(A, B)) # 틀렸음..........
+print(BFS(S, E))
 
 
 
